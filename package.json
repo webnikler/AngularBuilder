@@ -1,0 +1,44 @@
+{
+  "name": "angular-builder",
+  "version": "1.0.0",
+  "description": "Сборщик для рабочих проектов на Angular 1.x",
+  "main": "gulpfile.js",
+  "scripts": {
+    "dev": "gulp build --env dev",
+    "prod": "gulp build --env prod"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/webnikler/AngularBuilder.git"
+  },
+  "author": "Nikita Nikler",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/webnikler/AngularBuilder/issues"
+  },
+  "homepage": "https://github.com/webnikler/AngularBuilder#readme",
+  "devDependencies": {
+    "babel-core": "^6.24.1",
+    "babel-loader": "^7.0.0",
+    "babel-preset-es2015": "^6.24.1",
+    "gulp": "git+https://git@github.com/gulpjs/gulp.git#4.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-csso": "^3.0.0",
+    "gulp-debug": "^3.1.0",
+    "gulp-filter": "^5.0.0",
+    "gulp-if": "^2.0.2",
+    "gulp-inject": "^4.2.0",
+    "gulp-load-plugins": "^1.5.0",
+    "gulp-order": "^1.1.1",
+    "gulp-pug": "^3.3.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^2.1.2",
+    "gulplog": "^1.0.0",
+    "lodash": "^4.17.4",
+    "main-bower-files": "^2.13.1",
+    "ng-annotate-loader": "^0.6.0",
+    "node-notifier": "^5.1.2",
+    "uglifyjs-webpack-plugin": "^0.4.3",
+    "webpack": "^2.5.1"
+  }
+}

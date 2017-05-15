@@ -1,0 +1,14 @@
+{
+  "name": "angular-builder",
+  "description": "Сборщик для рабочих проектов на Angular 1.x",
+  "main": "gulpfile.js",
+  "authors": [
+    "Nikita Nikler"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/webnikler/AngularBuilder",
+  "dependencies": {
+    "angular": "angularjs#^1.6.4",
+    "angular-material": "^1.1.4"
+  }
+}
