@@ -1,0 +1,32 @@
+- 
+  var pugConfig = {
+    title: '',
+    desc: '',
+    base: '/',
+    ngApp: 'app',
+    lang: 'en',
+    loadingText: 'Loading...'
+  };
+
+html(lang=pugConfig.lang)
+
+  head
+    meta(charset="utf-8")
+    title= pugConfig.title
+    meta(name="viewport", content="width=device-width, initial-scale=1")
+    meta(name="mobile-web-app-capable", content="yes")
+    meta(name="apple-mobile-web-app-capable", content="yes")
+    meta(name="apple-mobile-web-app-status-bar-style", content="black")
+    meta(name="description", content=pugConfig.desc)
+    base(href=pugConfig.base)
+    // vendor:css
+    // endinject
+    // inject:css
+    // endinject
+
+  body(ng-app=pugConfig.ngApp, ng-cloak)
+    app= pugConfig.loadingText
+    // vendor:js
+    // endinject
+    // inject:js
+    // endinject
