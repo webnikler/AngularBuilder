@@ -11,7 +11,6 @@ import './gulp/tasks/scripts';   // build:js
 import './gulp/tasks/styles';    // build:css
 
 gulp.task('build', gulp.series(
-  gulp.parallel('build-vendor:js', 'build-vendor:css'),
-  gulp.parallel('build:js', 'build:css'),
+  gulp.parallel('build-vendor:js', 'build-vendor:css', 'build:js', 'build:css'),
   gulp.parallel('build:index', 'build:templates')
 ));
