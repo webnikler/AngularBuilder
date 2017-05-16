@@ -1,3 +1,3 @@
 /* main.js */
 
-console.log('123');
+const app = [1,2,3];
