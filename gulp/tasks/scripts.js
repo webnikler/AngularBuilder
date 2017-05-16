@@ -8,17 +8,15 @@ import webpack  from 'webpack';
 import path     from 'path';
 import {paths, plugins, config} from '../config';
 
-const isDevelop = config.env === 'dev';
-
-gulp.task('build-js', (callback) => {
+gulp.task('build:js', (callback) => {
 
   let options = {
-    entry: paths.webpack.input,
+    entry: path.resolve(paths.source.files.mainJS),
     output: {
-      path: '/',
-      filename: '[name].js'
+      path: path.resolve(paths.dest.folders.scripts),
+      filename: config.isDevelop ? 'build.js' : 'build.min.js'
     },
-    watch: isDevelop,
+    watch: config.isDevelop,
     module: {
       loaders: [{
         test: /\.js$/,
@@ -31,7 +29,7 @@ gulp.task('build-js', (callback) => {
     plugins: []
   };
 
-  if (!isDevelop) options.plugins.push( new uglify() );
+  if (!config.isDevelop) options.plugins.push( new uglify() );
 
   webpack(options, (err, stats) => {
     if (!err) err = stats.toJson().errors[0];
