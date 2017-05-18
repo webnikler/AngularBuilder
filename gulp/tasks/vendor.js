@@ -1,7 +1,6 @@
 'use strict';
 
-import gulp       from 'gulp';
-import path       from 'path';
+import gulp from 'gulp';
 import bowerFiles from 'main-bower-files';
 import {paths, plugins, config} from '../config';
 
