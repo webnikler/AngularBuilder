@@ -29,10 +29,10 @@ const paths = {
       indexHTML: path.join(source, 'index.pug'),
       fonts:     path.join(source, 'fonts/**/*'),
       test:      path.join(app, '**/*.spec.js'),
-      stylus:    path.join(app, 'main.styl'),
+      stylus:    path.join(app, 'root.styl'),
       images:    path.join(source, 'img/**/*'),
       templates: path.join(app, '**/*.pug'),
-      mainJS:    path.join(app, 'main.js')
+      mainJS:    path.join(app, 'root.module.js')
     },
     folders: {
       scripts:   app,
