@@ -24,7 +24,7 @@ gulp.task('build:js', (callback) => {
     entry: path.resolve(paths.source.files.mainJS),
     output: {
       path: path.resolve(paths.dest.folders.scripts),
-      filename: config.isDevelop ? 'build.js' : 'build.min.js'
+      filename: (config.isDevelop ? 'build.js' : 'build.min.js')
     },
     devtool: (config.isDevelop ? 'eval' : false),
     watch: config.isDevelop,
