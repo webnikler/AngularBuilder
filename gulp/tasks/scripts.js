@@ -8,6 +8,16 @@ import webpack  from 'webpack';
 import path     from 'path';
 import {paths, plugins, config} from '../config';
 
+const scripts = {
+  test: /\.js$/,
+  loader: 'ng-annotate-loader!babel-loader'
+};
+
+const templates = {
+  test: /\.pug$/,
+  loader: 'ngtemplate-loader!html-loader!pug-html-loader'
+}
+
 gulp.task('build:js', (callback) => {
 
   let options = {
@@ -16,20 +26,19 @@ gulp.task('build:js', (callback) => {
       path: path.resolve(paths.dest.folders.scripts),
       filename: config.isDevelop ? 'build.js' : 'build.min.js'
     },
+    devtool: (config.isDevelop ? 'eval' : false),
     watch: config.isDevelop,
-    module: {
-      loaders: [{
-        test: /\.js$/,
-        use: [
-          { loader: 'ng-annotate-loader' },
-          { loader: 'babel-loader' }
-        ]
-      }]
-    },
+    module: {loaders: [scripts, templates]},
     plugins: []
   };
 
-  if (!config.isDevelop) options.plugins.push( new uglify() );
+  if (!config.isDevelop) options.plugins.push(new uglify());
+
+  runWebpack(options, callback);
+
+});
+
+function runWebpack(options, callback) {
 
   webpack(options, (err, stats) => {
     if (!err) err = stats.toJson().errors[0];
@@ -39,7 +48,6 @@ gulp.task('build:js', (callback) => {
         title: 'webpack',
         message: err
       });
-
       gulplog.error(err);
     } else {
       gulplog.info(stats.toString({colors: true}));
@@ -52,4 +60,4 @@ gulp.task('build:js', (callback) => {
     }
   });
 
-});
+}
