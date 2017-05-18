@@ -5,6 +5,13 @@ import path from 'path';
 import _    from 'lodash';
 import {paths, plugins, config} from '../config';
 
+/** @description - Функция для преобразования аргументов для плагина gulp-inject
+ * 
+ * @param {string} _path - Путь до файла без расширения
+ * @param {string} _ext - Расширение файла
+ * @param {object} _options - Дополнительные опции для плагина gulp-inject
+ * @return {array}  - Возвращает массив из элементов [Путь к файлу с расширением, Опции]
+ */
 const inject = (_path, _ext, _options = {}) => {
   const ext  = config.isDevelop ? _ext : `min.${_ext}`;
   const file = `${_path}.${ext}`;
