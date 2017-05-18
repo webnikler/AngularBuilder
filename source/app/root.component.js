@@ -1,3 +1,5 @@
 import templateUrl from './root.pug';
 
-export const rootComponent = { templateUrl };
+export default {
+  templateUrl
+};

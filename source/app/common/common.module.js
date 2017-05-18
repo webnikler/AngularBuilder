@@ -1,3 +1,3 @@
-export const common = angular
+export default angular
   .module('common', [])
   .name;

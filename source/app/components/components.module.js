@@ -1,3 +1,3 @@
-export const components = angular
+export default angular
   .module('components', [])
   .name;

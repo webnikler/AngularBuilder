@@ -3,7 +3,7 @@
     title: '',
     desc: '',
     base: '/',
-    ngApp: 'app',
+    ngApp: 'root',
     lang: 'en',
     loadingText: 'Loading...'
   };
@@ -25,7 +25,7 @@ html(lang=pugConfig.lang)
     // endinject
 
   body(ng-app=pugConfig.ngApp, ng-cloak)
-    app= pugConfig.loadingText
+    root= pugConfig.loadingText
     // vendor:js
     // endinject
     // build:js
