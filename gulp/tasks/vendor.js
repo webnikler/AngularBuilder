@@ -10,7 +10,7 @@ const isProduction = !config.isDevelop
 
 const orderArgs = [
   /* Перевод абсолютных путей в относительные (иначе gulp-order не съест их) */
-  vendors.map(vendor => vendor.slice(vendor.indexOf('bower_components'))),
+  vendors.map(vendor => vendor.match(/bower_components\S+/)[0]),   
   { base: './' }
 ];
 
