@@ -1,27 +1,22 @@
 'use strict';
 
-/* Imports */
-import path  from 'path';
-import glp   from 'gulp-load-plugins';
-import yargs from 'yargs';
+import path       from 'path';
+import glp        from 'gulp-load-plugins';
+import bowerFiles from 'main-bower-files';
+import yargs      from 'yargs';
 
-/* Constants (path) */
 const source = 'source';
 const app    = path.join(source, 'app');
 const dev    = 'dev';
 const prod   = 'prod';
 
-/* Other */
 const plugins = glp();
 const args = yargs.argv;
 
-/* Build config */
 const config = {
-  isDevelop:   args.env === 'dev',
-  useMaterial: true // Если ставится false ,требуется дополнительно включить флаг ignore для material-design в bower.json
+  isDevelop:   args.env === 'dev'
 };
 
-/* App paths */
 const paths = {
   source: {
     files: {
@@ -43,7 +38,9 @@ const paths = {
     folders: {
       base:      (config.isDevelop ? dev : prod),
       scripts:   (config.isDevelop ? `${dev}/js` : `${prod}/js`),
-      styles:    (config.isDevelop ? `${dev}/css` : `${prod}/css`)
+      styles:    (config.isDevelop ? `${dev}/css` : `${prod}/css`),
+      images:    (config.isDevelop ? `${dev}/img` : `${prod}/img`),
+      fonts:     (config.isDevelop ? `${dev}/fonts` : `${prod}/fonts`)
     }
   }
 };
