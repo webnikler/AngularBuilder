@@ -1,13 +1,17 @@
 'use strict';
 
-import gulp from 'gulp';
-import bs   from 'browser-sync';
-import {paths} from '../config';
+import gulp  from 'gulp';
+import bs    from 'browser-sync';
+import {paths, config} from '../config';
 
 const browserSync = bs.create();
 
-gulp.task('serve', () => {
+export default function $run_server() {
   browserSync.init({
-    server: { baseDir: paths.dest.folders.base }
-  })
-});
+    server: {
+      baseDir: paths.dest.folders.base
+    }
+  });
+  browserSync.watch(path.join(paths.dest.folders.base, '**/*.*'))
+    .on('change', browserSync.reload);
+};
