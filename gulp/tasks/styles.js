@@ -1,14 +1,15 @@
 'use strict';
 
-import gulp      from 'gulp';
+import gulp from 'gulp';
 import {paths, plugins, config} from '../config';
 
-gulp.task('build:css', () => {
+export default function $build_styles() {
   return gulp.src(paths.source.files.stylus)
     .pipe( plugins.stylus({compress: !config.isDevelop}) )
     .pipe( plugins.rename({
       basename: 'build',
-      extname: (config.isDevelop ? '.css' : '.min.css')
+      suffix: (config.isDevelop ? null : '.min')
     }) )
+    .pipe( plugins.if(!config.isDevelop, plugins.rev()) )
     .pipe( gulp.dest(paths.dest.folders.styles) );
-});
+};

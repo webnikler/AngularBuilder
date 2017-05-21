@@ -18,13 +18,12 @@ const templates = {
   loader: 'ngtemplate-loader!html-loader!pug-html-loader'
 }
 
-gulp.task('build:js', (callback) => {
-
-  let options = {
+export default function $build_scripts(callback) {
+  const options = {
     entry: path.resolve(paths.source.files.mainJS),
     output: {
       path: path.resolve(paths.dest.folders.scripts),
-      filename: (config.isDevelop ? 'build.js' : 'build.min.js')
+      filename: (config.isDevelop ? 'build.js' : 'build-[hash].min.js')
     },
     devtool: (config.isDevelop ? 'eval' : false),
     watch: config.isDevelop,
@@ -35,11 +34,9 @@ gulp.task('build:js', (callback) => {
   if (!config.isDevelop) options.plugins.push(new uglify());
 
   runWebpack(options, callback);
-
-});
+};
 
 function runWebpack(options, callback) {
-
   webpack(options, (err, stats) => {
     if (!err) err = stats.toJson().errors[0];
 
@@ -59,5 +56,4 @@ function runWebpack(options, callback) {
       callback();
     }
   });
-
 }
