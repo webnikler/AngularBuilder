@@ -14,7 +14,9 @@ const plugins = glp();
 const args = yargs.argv;
 
 const config = {
-  isDevelop:   args.env === 'dev'
+  isDevelop:    args.env === 'dev',
+  proxyEnabled: true,
+  proxyUrl:     'http://127.0.0.1:45000'
 };
 
 const paths = {
