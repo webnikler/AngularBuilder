@@ -3,32 +3,34 @@
 import gulp from 'gulp';
 import bowerFiles from 'main-bower-files';
 import combine from 'stream-combiner';
-import {paths, plugins, config} from '../config';
+
+import {$, isDevelop} from '../config';
+import {dFolders} from '../paths';
+
+let {scripts, styles} = dFolders;
 
 const vendors = bowerFiles();
 const relativePaths = vendors.map(vendor => vendor.match(/bower_components\S+/)[0]);
-const isProduction = !config.isDevelop;
+const isProduction = !isDevelop;
 const isExtJs = file => file.extname === '.js';
 
 export default function $build_vendors() {
   return gulp.src(vendors)
-    .pipe(plugins.filter('**/*.{js,css}'))
-    .pipe(plugins.if(isExtJs, 
+    .pipe($.filter('**/*.{js,css}'))
+    .pipe($.if(isExtJs, 
       combine(
-        plugins.order(relativePaths, { base: './' }),
-        plugins.concat('vendor.js'),
-        plugins.if(isProduction, plugins.uglify())
+        $.order(relativePaths, { base: './' }),
+        $.concat('vendor.js'),
+        $.if(isProduction, $.uglify())
       ),
       combine(
-         plugins.concat('vendor.css'),
-         plugins.if(isProduction, plugins.csso())
+         $.concat('vendor.css'),
+         $.if(isProduction, $.csso())
       )
     ))
-    .pipe(plugins.if(isProduction, plugins.rename({suffix: '.min'})))
-    .pipe(plugins.debug({title:'combine'}))
+    .pipe($.if(isProduction, $.rename({suffix: '.min'})))
+    .pipe($.debug({title:'combine'}))
     .pipe(gulp.dest(file => {
-      return isExtJs(file) ?
-        paths.dest.folders.scripts :
-        paths.dest.folders.styles;
+      return isExtJs(file) ? scripts : styles;
     }))
 }

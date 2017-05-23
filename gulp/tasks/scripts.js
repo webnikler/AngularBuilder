@@ -6,32 +6,38 @@ import notifier from 'node-notifier';
 import uglify   from 'uglifyjs-webpack-plugin';
 import webpack  from 'webpack';
 import path     from 'path';
-import {paths, plugins, config} from '../config';
 
-const scripts = {
+import {isDevelop, namesOfBuilds} from '../config';
+import {sFiles, dFolders} from '../paths';
+
+let {mainJS} = sFiles;
+let {scripts: destScripts} = dFolders;
+let {appJs} = namesOfBuilds;
+
+const scriptsLoaders = {
   test: /\.js$/,
   loader: 'ng-annotate-loader!babel-loader'
 };
 
-const templates = {
+const templatesLoaders = {
   test: /\.pug$/,
   loader: 'ngtemplate-loader!html-loader!pug-html-loader'
 }
 
 export default function $build_scripts(callback) {
   const options = {
-    entry: path.resolve(paths.source.files.mainJS),
+    entry: path.resolve(mainJS),
     output: {
-      path: path.resolve(paths.dest.folders.scripts),
-      filename: (config.isDevelop ? 'build.js' : 'build-[hash].min.js')
+      path: path.resolve(destScripts),
+      filename: isDevelop ? `${appJs}.js` : `${appJs}-[hash].min.js`
     },
-    devtool: (config.isDevelop ? 'eval' : false),
-    watch: config.isDevelop,
-    module: {loaders: [scripts, templates]},
+    devtool: isDevelop ? 'eval' : false,
+    watch: isDevelop,
+    module: {loaders: [scriptsLoaders, templatesLoaders]},
     plugins: []
   };
 
-  if (!config.isDevelop) options.plugins.push(new uglify());
+  if (!isDevelop) options.plugins.push(new uglify());
 
   runWebpack(options, callback);
 };

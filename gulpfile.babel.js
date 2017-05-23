@@ -3,7 +3,9 @@
 import gulp from 'gulp';
 import del  from 'del';
 import path from 'path';
-import {paths, plugins, config} from './gulp/config';
+
+import {$, isDevelop} from './gulp/config';
+import {sFiles, dFolders} from './gulp/paths';
 
 import $build_indexFile from './gulp/tasks/index';
 import $build_vendors   from './gulp/tasks/vendor';
@@ -12,12 +14,12 @@ import $build_styles    from './gulp/tasks/styles';
 import $build_other     from './gulp/tasks/other';
 import $run_server      from './gulp/tasks/serve';
 
-const $run_clean = () => del(paths.dest.folders.base);
+const $run_clean = () => del(dFolders.base);
 const $run_watch = () => {
-  gulp.watch(paths.source.files.stylus, gulp.series($build_styles));
-  gulp.watch([paths.source.files.fonts, paths.source.files.images], gulp.series($build_other))
+  gulp.watch(sFiles.stylus, gulp.series($build_styles));
+  gulp.watch([sFiles.fonts, sFiles.images], gulp.series($build_other))
     .on('unlink', filepath => {
-      delete plugins.cached.caches.$build_other[path.resolve(filepath)];
+      delete $.cached.caches.$build_other[path.resolve(filepath)];
     });
 };
 
@@ -27,6 +29,6 @@ const buildSeries = [
   $build_indexFile
 ];
 
-if (config.isDevelop) buildSeries.push(gulp.parallel($run_watch, $run_server));
+if (isDevelop) buildSeries.push(gulp.parallel($run_watch, $run_server));
 
 gulp.task('$build', gulp.series(...buildSeries));

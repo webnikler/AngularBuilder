@@ -1,15 +1,21 @@
 'use strict';
 
 import gulp from 'gulp';
-import {paths, plugins, config} from '../config';
+
+import {$, isDevelop, namesOfBuilds} from '../config';
+import {sFiles, dFolders} from '../paths';
+
+let {stylus} = sFiles;
+let {styles: destStyles} = dFolders;
+let {appCss} = namesOfBuilds;
 
 export default function $build_styles() {
-  return gulp.src(paths.source.files.stylus)
-    .pipe( plugins.stylus({compress: !config.isDevelop}) )
-    .pipe( plugins.rename({
-      basename: 'build',
-      suffix: (config.isDevelop ? null : '.min')
+  return gulp.src(stylus)
+    .pipe( $.stylus({compress: !isDevelop}) )
+    .pipe( $.rename({
+      basename: appCss,
+      suffix: isDevelop ? null : '.min'
     }) )
-    .pipe( plugins.if(!config.isDevelop, plugins.rev()) )
-    .pipe( gulp.dest(paths.dest.folders.styles) );
+    .pipe( $.if(!isDevelop, $.rev()) )
+    .pipe( gulp.dest(destStyles) );
 };

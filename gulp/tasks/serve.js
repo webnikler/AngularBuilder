@@ -3,30 +3,34 @@
 import gulp  from 'gulp';
 import bs    from 'browser-sync';
 import path  from 'path';
-import {paths, config} from '../config';
+
+import {proxyApi} from '../config';
+import {dFolders} from '../paths';
+
+let {url: proxy, enabled: proxyEnabled} = proxyApi;
+let {base} = dFolders;
 
 const browserSync = bs.create();
 
 const proxyConfig = {
-  proxy: config.proxyUrl,
+  proxy,
   serveStatic: [{
     route: '',
-    dir: paths.dest.folders.base
+    dir: base
   }]
 };
 
 const serverConfig = {
   server: {
-    baseDir: paths.dest.folders.base
+    baseDir: base
   }
 };
 
 export default function $run_server() {
-  browserSync.init( config.proxyEnabled ?
-    proxyConfig :
-    serverConfig
-  );
+  browserSync
+    .init(proxyEnabled ? proxyConfig : serverConfig);
 
-  browserSync.watch(path.join(paths.dest.folders.base, '**/*.*'))
+  browserSync
+    .watch(path.join(base, '**/*.*'))
     .on('change', browserSync.reload);
 };
